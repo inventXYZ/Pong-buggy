@@ -1,0 +1,6 @@
+{
+    "board": "SparkFun:samd:qwiic_micro_samd21e",
+    "port": "COM4",
+    "sketch": "main.ino",
+    "output": "./build"
+}
