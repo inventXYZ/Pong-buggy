@@ -191,24 +191,29 @@ bool ball_collided() {
     bool ball_hit_floor = (ball.y + ball.radius) >= screen.getDisplayHeight();
 
     // ball collided with the wall if it hit the ceiling OR hit the floor
+    // double vertical lines means OR
     events.ball_collided_with_wall = ball_hit_ceiling || ball_hit_floor;
 
     // if the ball is touching the player_p paddle
+    // double ampersand means AND
     bool ball_hit_player_paddle =
         (ball.x <= player_paddle.x) && 
         (ball.y >= player_paddle.y) && 
         (ball.y <= player_paddle.y);
 
     // if the ball is touching the opponent paddle
+    // double ampersand means AND
     bool ball_hit_opponent_paddle = 
         (ball.x >= opponent_paddle.x) &&
         (ball.y >= opponent_paddle.y) && 
         (ball.y <= opponent_paddle.y);
 
     // ball collided with a paddle if it hit the player paddle OR opponent paddle
+    // double vertical lines means OR
     events.ball_collided_with_paddle = ball_hit_player_paddle || ball_hit_opponent_paddle;
 
     // ball collided if it collided with a wall OR with a paddle
+    // double vertical lines means OR
     bool did_ball_collide = events.ball_collided_with_wall || events.ball_collided_with_paddle;
 
     SerialUSB.print("Did ball collide? ");
@@ -274,7 +279,11 @@ void update_screen() {
 /**
  * Draw dashed line going down the center of the screen
  */
-void draw_court() { SerialUSB.println("Drawing court"); }
+void draw_court() { 
+    SerialUSB.println("Drawing court"); 
+    
+    // eventually need to draw a dashed line
+}
 
 /**
  * Draw player's score to left of center
@@ -328,6 +337,7 @@ bool scored_a_point() {
     events.opponent_scored_a_point = ball.x <= (player_paddle.x);
 
     // a point was scored if either the player scored OR the opponent scored
+    // double vertical lines means OR
     bool did_score_point = events.player_scored_a_point || events.opponent_scored_a_point;
 
     SerialUSB.print("Did someone score? ");
@@ -429,19 +439,3 @@ void wait_for_player_to_start_new_game() {
         read_buttons();
     }
 }
-
-/** List of possible bug ideas:
- * opponent paddle never moves
- * -> student implements some logic by duplicating logic from player
- *
- * ball bounces back in same direction instead of reflecting
- * -> only switch x or y, not both OR flip slope instead of step
- *
- * ball doesn't reflect off the screen at all
- *
- * paddles can go off of the screen
- * -> if y>=127-paddle.height or y<=0, reset
- *
- * Have the students center the text on the screen
- * Font is too big so text doesn't fit in one line
- */
