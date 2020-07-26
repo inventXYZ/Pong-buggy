@@ -143,6 +143,8 @@ void update_paddle_positions() {
 }
 
 void update_player_paddle() {
+    SerialUSB.println("Updating player_paddle");
+
     if (up_button.pressed) {
         // move up
         player_paddle.y += (player_paddle.speed * player_paddle.direction);
@@ -165,7 +167,22 @@ void update_player_paddle() {
  *  move the paddle down if the ball is below it
  * There are probably more intelligent strategies
  */
-void update_opponent_paddle() {}
+void update_opponent_paddle() {
+    SerialUSB.println("Updating opponent_paddle");
+}
+
+/**
+ * Without this function, it is technically possible
+ * for the paddles to go too far up or down and end up outside of the screen area
+ */
+void keep_paddles_onscreen() {
+    SerialUSB.println("Making sure paddles stay on the screen");
+
+    player_paddle.y =
+        constrain(player_paddle.y, 0, screen.getDisplayHeight() - player_paddle.height);
+    opponent_paddle.y =
+        constrain(opponent_paddle.y, 0, screen.getDisplayHeight() - opponent_paddle.height);
+}
 
 /**
  * This function moves the ball based on its current angle (direction)
