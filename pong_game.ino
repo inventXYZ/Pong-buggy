@@ -86,8 +86,8 @@ void reset_ball() {
     ball.radius = 3;
 
     // center the ball vertically and horizontally
-    ball.x = screen.getDisplayHeight() / 2;
-    ball.y = screen.getDisplayWidth() / 2;
+    ball.x = screen.getDisplayWidth() / 2;
+    ball.y = screen.getDisplayHeight() / 2;
 
     ball.speed = 5;
 
